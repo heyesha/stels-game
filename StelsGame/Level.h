@@ -26,8 +26,5 @@ public:
 
 	void draw(sf::RenderWindow& window);
 	bool checkCollision(sf::FloatRect bounds);
-
-private:
-	void createWall(float x, float y, float w, float h);
 };
 

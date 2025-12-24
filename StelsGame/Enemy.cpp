@@ -10,7 +10,8 @@ Enemy::Enemy(std::vector<sf::Vector2f> p) : path(p) {
     if (!path.empty()) shape.setPosition(path[0]);
 }
 
-void Enemy::update(float dt) {
+void Enemy::update(float dt) 
+{
     if (path.empty()) return;
 
     sf::Vector2f target = path[pathIndex];
@@ -27,7 +28,8 @@ void Enemy::update(float dt) {
     }
 }
 
-void Enemy::checkVision(sf::Vector2f playerPos, std::vector<sf::RectangleShape>& walls) {
+void Enemy::checkVision(sf::Vector2f playerPos, std::vector<sf::RectangleShape>& walls) 
+{
     seesPlayer = false;
     sf::Vector2f enemyPos = shape.getPosition();
     sf::Vector2f toPlayer = playerPos - enemyPos;

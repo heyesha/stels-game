@@ -37,6 +37,7 @@
     <Text Include="level3.txt" />
     <Text Include="level1.txt" />
     <Text Include="level2.txt" />
+    <Text Include="level4.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

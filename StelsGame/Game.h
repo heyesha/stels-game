@@ -28,6 +28,6 @@ private:
     bool isWin;
 
     int currentLevelIndex;
-    const int MAX_LEVELS = 3;
+    const int MAX_LEVELS = 4;
 };
 

@@ -66,6 +66,21 @@ void Game::processEvents() {
             {
                 loadLevel(currentLevelIndex);
             }
+
+            // Пропуск уровня
+            if (key->code == sf::Keyboard::Key::N) 
+            {
+                currentLevelIndex++;
+                if (currentLevelIndex > MAX_LEVELS) currentLevelIndex = 1;
+                loadLevel(currentLevelIndex);
+            }
+        }
+
+        if (const auto* mouse = event->getIf<sf::Event::MouseButtonPressed>()) 
+        {
+            if (mouse->button == sf::Mouse::Button::Left) {
+                std::cout << "Mouse: " << mouse->position.x << " " << mouse->position.y << std::endl;
+            }
         }
     }
 }
