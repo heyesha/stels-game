@@ -159,7 +159,8 @@ void Game::update(float dt)
         statusText.setPosition({ 800.f / 2.f, 600.f / 2.f });
     }
 
-    for (auto& enemy : enemies) {
+    for (auto& enemy : enemies) 
+    {
         enemy.update(dt);
         enemy.checkVision(player.shape.getPosition(), level.walls);
 

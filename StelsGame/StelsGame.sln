@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StelsGame", "StelsGame.vcxproj", "{DAEAB840-41C6-41FA-A5A7-854CCBF357ED}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "StealthGameInstaller", "..\StealthGameInstaller\StealthGameInstaller.vdproj", "{8079FCAA-DD05-4876-AAAA-17664CD9A64A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{DAEAB840-41C6-41FA-A5A7-854CCBF357ED}.Release|x64.Build.0 = Release|x64
 		{DAEAB840-41C6-41FA-A5A7-854CCBF357ED}.Release|x86.ActiveCfg = Release|Win32
 		{DAEAB840-41C6-41FA-A5A7-854CCBF357ED}.Release|x86.Build.0 = Release|Win32
+		{8079FCAA-DD05-4876-AAAA-17664CD9A64A}.Debug|x64.ActiveCfg = Debug
+		{8079FCAA-DD05-4876-AAAA-17664CD9A64A}.Debug|x86.ActiveCfg = Debug
+		{8079FCAA-DD05-4876-AAAA-17664CD9A64A}.Release|x64.ActiveCfg = Release
+		{8079FCAA-DD05-4876-AAAA-17664CD9A64A}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
