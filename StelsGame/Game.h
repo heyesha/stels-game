@@ -18,6 +18,11 @@ private:
     void render();
 
     void loadLevel(int index);
+    void initUI();
+
+    sf::Font font;
+    sf::Text statusText;
+    sf::Text infoText;
 
     sf::RenderWindow window;
     Level level;

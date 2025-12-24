@@ -1,12 +1,41 @@
 #include "Game.h"
 #include <iostream>
 
-Game::Game() : window(sf::VideoMode({ 800, 600 }), "Stealth Game Files"), isGameOver(false), isWin(false), currentLevelIndex(1)
+Game::Game() : window(sf::VideoMode({ 800, 600 }), "Stealth Game Files"), isGameOver(false), isWin(false), 
+currentLevelIndex(1), 
+statusText(font),
+infoText(font)
 {
     window.setFramerateLimit(60);
+
+    initUI();
     loadLevel(currentLevelIndex);
 }
 
+/// <summary>
+/// Инициализация UI
+/// </summary>
+void Game::initUI() {
+    if (!font.openFromFile("arial.ttf")) 
+    {
+        std::cerr << "ERROR: Failed to load arial.ttf" << std::endl;
+    }
+
+    statusText.setFont(font);
+    statusText.setCharacterSize(50);
+    statusText.setFillColor(sf::Color::White);
+    statusText.setString("");
+
+    infoText.setFont(font);
+    infoText.setCharacterSize(20);
+    infoText.setFillColor(sf::Color::White);
+    infoText.setPosition({ 10.f, 10.f });
+}
+
+/// <summary>
+/// Загрузка уровня из файла по индексу
+/// </summary>
+/// <param name="index"></param>
 void Game::loadLevel(int index) 
 {
     // Формируем имя файла: level1.txt
@@ -21,6 +50,9 @@ void Game::loadLevel(int index)
     player.shape.setPosition(level.playerStartPos);
     player.shape.setFillColor(sf::Color::Green);
     player.reset();
+
+    statusText.setString("");
+    infoText.setString("Level: " + std::to_string(index));
 
     // Создаем врагов на основе данных из файла
     enemies.clear();
@@ -113,15 +145,20 @@ void Game::update(float dt)
 
     player.update(dt, level);
 
-    // Проверка победы
     if (player.shape.getGlobalBounds().findIntersection(level.goal.getGlobalBounds())) 
     {
         isWin = true;
         player.shape.setFillColor(sf::Color::Cyan);
         std::cout << "LEVEL COMPLETE! Press SPACE for next level." << std::endl;
+
+        statusText.setString("LEVEL COMPLETE!\nPress Space");
+        statusText.setFillColor(sf::Color::Green);
+
+        sf::FloatRect textRect = statusText.getLocalBounds();
+        statusText.setOrigin({ textRect.size.x / 2.f, textRect.size.y / 2.f });
+        statusText.setPosition({ 800.f / 2.f, 600.f / 2.f });
     }
 
-    // Враги
     for (auto& enemy : enemies) {
         enemy.update(dt);
         enemy.checkVision(player.shape.getPosition(), level.walls);
@@ -130,11 +167,19 @@ void Game::update(float dt)
             isGameOver = true;
             player.shape.setFillColor(sf::Color::Red);
             std::cout << "CAUGHT! Press R to restart." << std::endl;
+
+            statusText.setString("CAUGHT!\nPress R to restart");
+            statusText.setFillColor(sf::Color::Red);
+
+            sf::FloatRect textRect = statusText.getLocalBounds();
+            statusText.setOrigin({ textRect.size.x / 2.f, textRect.size.y / 2.f });
+            statusText.setPosition({ 800.f / 2.f, 600.f / 2.f });
         }
     }
 }
 
-void Game::render() {
+void Game::render() 
+{
     window.clear(sf::Color(30, 30, 30));
 
     level.draw(window);
@@ -154,5 +199,14 @@ void Game::render() {
     }
 
     player.draw(window);
+
+    window.draw(infoText);
+
+    if (isGameOver || isWin) 
+    {
+
+        window.draw(statusText);
+    }
+
     window.display();
 }
