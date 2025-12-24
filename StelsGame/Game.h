@@ -16,7 +16,8 @@ private:
     void processEvents();
     void update(float dt);
     void render();
-    void initEnemies();
+
+    void loadLevel(int index);
 
     sf::RenderWindow window;
     Level level;
@@ -25,5 +26,8 @@ private:
 
     bool isGameOver;
     bool isWin;
+
+    int currentLevelIndex;
+    const int MAX_LEVELS = 3;
 };
 

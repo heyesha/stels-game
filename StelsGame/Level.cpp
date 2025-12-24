@@ -1,29 +1,76 @@
 #include "Level.h"
+#include <fstream>
+#include <sstream>
+#include <iostream>
+
+using namespace std;
 
 Level::Level()
 {
-    goal.setSize({ 60.f, 60.f });
-    goal.setPosition({ 720.f, 520.f });
-    goal.setFillColor(sf::Color::Blue);
-
-    createWall(200, 150, 20, 300);
-    createWall(400, 100, 200, 20);
-    createWall(500, 350, 50, 50);
+    // Дефолтные значения, чтобы игра не упала, если файл не загрузится
+    playerStartPos = { 50.f, 50.f };
 }
 
-/// <summary>
-/// Добавляет стену в vector класса Level
-/// </summary>
-/// <param name="x"></param>
-/// <param name="y"></param>
-/// <param name="w"></param>
-/// <param name="h"></param>
-void Level::createWall(float x, float y, float w, float h)
+bool Level::loadFromFile(string& filename) 
 {
-    sf::RectangleShape wall({ w, h });
-    wall.setPosition({ x, y });
-    wall.setFillColor(sf::Color(80, 80, 80));
-    walls.push_back(wall);
+    // Очищаем старые данные
+    walls.clear();
+    enemyConfigs.clear();
+
+    // Открываем поток чтения файла, если открыть не получилось - выводим ошибку
+    ifstream file(filename);
+    if (!file.is_open()) 
+    {
+        cerr << "Failed to open level: " << filename << endl;
+        return false;
+    }
+
+    // Построчно считываем строку из файла
+    string line;
+    while (getline(file, line)) 
+    {
+        if (line.empty())
+        {
+            continue;
+        }
+
+        stringstream ss(line);
+        string type;
+        ss >> type;
+
+        if (type == "PLAYER") {
+            float x, y;
+            ss >> x >> y;
+            playerStartPos = { x, y };
+        }
+        else if (type == "GOAL") {
+            float x, y, w, h;
+            ss >> x >> y >> w >> h;
+            goal.setSize({ w, h });
+            goal.setPosition({ x, y });
+            goal.setFillColor(sf::Color::Blue);
+        }
+        else if (type == "WALL") {
+            float x, y, w, h;
+            ss >> x >> y >> w >> h;
+            sf::RectangleShape wall({ w, h });
+            wall.setPosition({ x, y });
+            wall.setFillColor(sf::Color(80, 80, 80));
+            walls.push_back(wall);
+        }
+        else if (type == "ENEMY") {
+            EnemyConfig config;
+            float px, py;
+            // Читаем пары координат до конца строки
+            while (ss >> px >> py) {
+                config.path.push_back({ px, py });
+            }
+            if (!config.path.empty()) {
+                enemyConfigs.push_back(config);
+            }
+        }
+    }
+    return true;
 }
 
 /// <summary>

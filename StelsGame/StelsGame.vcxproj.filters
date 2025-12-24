@@ -51,4 +51,15 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="level3.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="level1.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="level2.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+  </ItemGroup>
 </Project>
