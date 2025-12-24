@@ -4,6 +4,8 @@
 
 class Player
 {
+private:
+	const float RADIUS = 12.f;
 public:
 	sf::CircleShape shape;
 
