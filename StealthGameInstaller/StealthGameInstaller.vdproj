@@ -173,7 +173,7 @@
             "SourcePath" = "8:..\\StelsGame\\level4.txt"
             "TargetName" = "8:level4.txt"
             "Tag" = "8:"
-            "Folder" = "8:_23CDFA48E0FB4090BC42FEC9BD6DE872"
+            "Folder" = "8:_0B411C85617D47E4A304602B96B98D22"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -233,7 +233,7 @@
             "SourcePath" = "8:..\\StelsGame\\level2.txt"
             "TargetName" = "8:level2.txt"
             "Tag" = "8:"
-            "Folder" = "8:_23CDFA48E0FB4090BC42FEC9BD6DE872"
+            "Folder" = "8:_0B411C85617D47E4A304602B96B98D22"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -253,7 +253,7 @@
             "SourcePath" = "8:..\\StelsGame\\level3.txt"
             "TargetName" = "8:level3.txt"
             "Tag" = "8:"
-            "Folder" = "8:_23CDFA48E0FB4090BC42FEC9BD6DE872"
+            "Folder" = "8:_0B411C85617D47E4A304602B96B98D22"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -313,7 +313,7 @@
             "SourcePath" = "8:..\\StelsGame\\level1.txt"
             "TargetName" = "8:level1.txt"
             "Tag" = "8:"
-            "Folder" = "8:_23CDFA48E0FB4090BC42FEC9BD6DE872"
+            "Folder" = "8:_0B411C85617D47E4A304602B96B98D22"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -344,17 +344,6 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_23CDFA48E0FB4090BC42FEC9BD6DE872"
-                    {
-                    "Name" = "8:levels"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_B1A95B184E364DEFA68FDDA0CEA8DF13"
-                        "Folders"
-                        {
-                        }
-                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_57665D3D96EC4830BC55F7A15F6F4E3F"
@@ -396,7 +385,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:StealthGameInstaller"
         "ProductCode" = "8:{551758C8-16B5-4EC0-9F48-12DE88438175}"
-        "PackageCode" = "8:{4949D291-8A8C-4128-95AF-D25FCB07AF7F}"
+        "PackageCode" = "8:{16DB8E19-0C24-46F3-B6C2-B872C51B4B8F}"
         "UpgradeCode" = "8:{B0DD9687-83B1-48EF-92E5-3D5B79878E4C}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
