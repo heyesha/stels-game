@@ -12,7 +12,7 @@ public:
 
 	Level();
 	void draw(sf::RenderWindow& window);
-	bool checkCollisision(sf::FloatRect bounds);
+	bool checkCollision(sf::FloatRect bounds);
 
 private:
 	void createWall(float x, float y, float w, float h);
