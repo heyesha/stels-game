@@ -4,18 +4,18 @@
 Game::Game() : window(sf::VideoMode({ 800, 600 }), "Stealth Game Files"), isGameOver(false), isWin(false)
 {
     window.setFramerateLimit(60);
-    //initEnemies();
+    initEnemies();
 }
 
 /// <summary>
 /// Инициализация противников
 /// </summary>
-//void Game::initEnemies() 
-//{
-//    enemies.clear();
-//    enemies.emplace_back(std::vector<sf::Vector2f>{{300, 100}, { 700, 100 }});
-//    enemies.emplace_back(std::vector<sf::Vector2f>{{400, 500}, { 600, 300 }, { 200, 300 }});
-//}
+void Game::initEnemies() 
+{
+    enemies.clear();
+    enemies.emplace_back(std::vector<sf::Vector2f>{{300, 100}, { 700, 100 }});
+    enemies.emplace_back(std::vector<sf::Vector2f>{{400, 500}, { 600, 300 }, { 200, 300 }});
+}
 
 /// <summary>
 /// Процесс игры
@@ -48,7 +48,7 @@ void Game::processEvents()
                 isGameOver = false;
                 isWin = false;
                 player.reset();
-                //initEnemies();
+                initEnemies();
             }
         }
     }
@@ -73,7 +73,16 @@ void Game::update(float dt)
         std::cout << "YOU WIN!" << std::endl;
     }
 
-    // TODO: Добавить обработку обновления противников, логику обнаружения игрока
+    for (auto& enemy : enemies) {
+        enemy.update(dt);
+        enemy.checkVision(player.shape.getPosition(), level.walls);
+
+        if (enemy.seesPlayer) {
+            isGameOver = true;
+            player.shape.setFillColor(sf::Color::Red);
+            std::cout << "CAUGHT!" << std::endl;
+        }
+    }
 }
 
 void Game::render() {
@@ -81,7 +90,16 @@ void Game::render() {
 
     level.draw(window);
 
-    // TODO: Добавить проверку видит ли противник игрока
+    for (auto& enemy : enemies) {
+        enemy.draw(window);
+        if (enemy.seesPlayer) {
+            sf::Vertex line[] = {
+                sf::Vertex{enemy.shape.getPosition(), sf::Color::Red},
+                sf::Vertex{player.shape.getPosition(), sf::Color::Red}
+            };
+            window.draw(line, 2, sf::PrimitiveType::Lines);
+        }
+    }
 
     player.draw(window);
     window.display();

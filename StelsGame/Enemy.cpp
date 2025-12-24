@@ -73,20 +73,21 @@ void Enemy::checkVision(sf::Vector2f playerPos, const std::vector<sf::RectangleS
 
 void Enemy::draw(sf::RenderWindow& window) {
     sf::VertexArray cone(sf::PrimitiveType::TriangleFan);
-    
-    cone.append(sf::Vertex{shape.getPosition(), sf::Color(255, 255, 0, 30)});
-    
+
+    cone.append(sf::Vertex{ shape.getPosition(), sf::Color(255, 255, 0, 30) });
+
     float baseAngle = shape.getRotation().asDegrees();
     int segments = 30;
-    
+
     for (int i = 0; i <= segments; ++i) {
         float a = (baseAngle - VIEW_ANGLE) + (VIEW_ANGLE * 2 * i / segments);
-        float r = a * DEG_TO_RAD; 
-        
+        float r = a * DEG_TO_RAD;
+
         sf::Vector2f end = shape.getPosition() + sf::Vector2f(std::cos(r), std::sin(r)) * VIEW_DISTANCE;
-        
-        cone.append(sf::Vertex{end, sf::Color(255, 255, 0, 30)});
+
+        cone.append(sf::Vertex{ end, sf::Color(255, 255, 0, 30) });
     }
-    
-    window.draw(cone); 
+
+    window.draw(cone);
     window.draw(shape);
+}
