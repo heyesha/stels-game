@@ -8,7 +8,7 @@ class Enemy
 public:
     sf::ConvexShape shape;
     std::vector<sf::Vector2f> path;
-    size_t pathIndex = 0;
+    int pathIndex = 0;
     bool seesPlayer = false;
 
     Enemy(std::vector<sf::Vector2f> p);

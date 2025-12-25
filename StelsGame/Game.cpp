@@ -38,7 +38,6 @@ void Game::initUI() {
 /// <param name="index"></param>
 void Game::loadLevel(int index) 
 {
-    // ‘ормируем им€ файла: level1.txt
     std::string filename = "level" + std::to_string(index) + ".txt";
 
     if (!level.loadFromFile(filename)) 
@@ -46,7 +45,6 @@ void Game::loadLevel(int index)
         std::cerr << "Error loading level, fallback to default logic or exit" << std::endl;
     }
 
-    // —брасываем игрока в новую позицию из файла
     player.shape.setPosition(level.playerStartPos);
     player.shape.setFillColor(sf::Color::Green);
     player.reset();
@@ -54,7 +52,6 @@ void Game::loadLevel(int index)
     statusText.setString("");
     infoText.setString("Level: " + std::to_string(index));
 
-    // —оздаем врагов на основе данных из файла
     enemies.clear();
     for (const auto& config : level.enemyConfigs) 
     {
@@ -164,7 +161,8 @@ void Game::update(float dt)
         enemy.update(dt);
         enemy.checkVision(player.shape.getPosition(), level.walls);
 
-        if (enemy.seesPlayer) {
+        if (enemy.seesPlayer) 
+        {
             isGameOver = true;
             player.shape.setFillColor(sf::Color::Red);
             std::cout << "CAUGHT! Press R to restart." << std::endl;

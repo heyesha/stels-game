@@ -38,16 +38,32 @@ public:
 		}
 	}
 
-	static bool checkIntersection(sf::Vector2f p1, sf::Vector2f p2, sf::Vector2f p3, sf::Vector2f p4) {
-		auto cross = [](sf::Vector2f a, sf::Vector2f b) { return a.x * b.y - a.y * b.x; };
-		sf::Vector2f r = p2 - p1;
-		sf::Vector2f s = p4 - p3;
-		float rxs = cross(r, s);
-		if (std::abs(rxs) < 1e-5f) return false;
-		sf::Vector2f qp = p3 - p1;
-		float t = cross(qp, s) / rxs;
-		float u = cross(qp, r) / rxs;
-		return (t >= 0 && t <= 1 && u >= 0 && u <= 1);
+	static float cross2(sf::Vector2f a, sf::Vector2f b)
+	{
+		return a.x * b.y - a.y * b.x;
+	}
+
+	static bool checkIntersection(sf::Vector2f a1, sf::Vector2f a2,
+		sf::Vector2f b1, sf::Vector2f b2)
+	{
+		const float EPS = 1e-5f;
+
+		sf::Vector2f aDir = a2 - a1;
+		sf::Vector2f bDir = b2 - b1;
+
+		float det = cross2(aDir, bDir);
+		if (std::abs(det) < EPS)
+			return false;
+
+		sf::Vector2f aToB = b1 - a1;
+
+		float t = cross2(aToB, bDir) / det;
+		float u = cross2(aToB, aDir) / det;
+
+		if (t < 0.f || t > 1.f) return false;
+		if (u < 0.f || u > 1.f) return false;
+
+		return true;
 	}
 };
 

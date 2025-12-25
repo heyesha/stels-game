@@ -10,6 +10,10 @@ Enemy::Enemy(std::vector<sf::Vector2f> p) : path(p) {
     if (!path.empty()) shape.setPosition(path[0]);
 }
 
+/// <summary>
+/// Покадровое обновление противника
+/// </summary>
+/// <param name="dt"></param>
 void Enemy::update(float dt) 
 {
     if (path.empty()) return;
@@ -17,10 +21,12 @@ void Enemy::update(float dt)
     sf::Vector2f target = path[pathIndex];
     sf::Vector2f toTarget = target - shape.getPosition();
 
-    if (Geometry::getLength(toTarget) < 5.f) {
+    if (Geometry::getLength(toTarget) < 5.f) 
+    {
         pathIndex = (pathIndex + 1) % path.size();
     }
-    else {
+    else 
+    {
         sf::Vector2f dir = Geometry::normalize(toTarget);
         shape.move(dir * ENEMY_SPEED * dt);
         float angle = std::atan2(dir.y, dir.x) * 180.f / 3.14159f;
@@ -28,42 +34,56 @@ void Enemy::update(float dt)
     }
 }
 
+/// <summary>
+/// Проверяет видит ли противник игрока
+/// </summary>
+/// <param name="playerPos"></param>
+/// <param name="walls"></param>
 void Enemy::checkVision(sf::Vector2f playerPos, std::vector<sf::RectangleShape>& walls) 
 {
     seesPlayer = false;
     sf::Vector2f enemyPos = shape.getPosition();
     sf::Vector2f toPlayer = playerPos - enemyPos;
 
-    if (Geometry::getLength(toPlayer) > VIEW_DISTANCE) return;
+    if (Geometry::getLength(toPlayer) > VIEW_DISTANCE)
+    {
+        return;
+    }
 
     sf::Vector2f dirToPlayer = Geometry::normalize(toPlayer);
     float rad = shape.getRotation().asRadians();
     sf::Vector2f facing({ std::cos(rad), std::sin(rad) });
 
     if ((dirToPlayer.x * facing.x + dirToPlayer.y * facing.y) < std::cos(VIEW_ANGLE * DEG_TO_RAD))
+    {
         return;
+    }
 
-    // Raycasting
-    for (const auto& wall : walls) {
+    for (const auto& wall : walls) 
+    {
         sf::FloatRect b = wall.getGlobalBounds();
         sf::Vector2f p1(b.position.x, b.position.y);
         sf::Vector2f p2(b.position.x + b.size.x, b.position.y);
         sf::Vector2f p3(b.position.x + b.size.x, b.position.y + b.size.y);
         sf::Vector2f p4(b.position.x, b.position.y + b.size.y);
 
-        if (Geometry::checkIntersection(enemyPos, playerPos, p1, p2) ||
-            Geometry::checkIntersection(enemyPos, playerPos, p2, p3) ||
-            Geometry::checkIntersection(enemyPos, playerPos, p3, p4) ||
-            Geometry::checkIntersection(enemyPos, playerPos, p4, p1)) {
+        if (Geometry::checkIntersection(enemyPos, playerPos, p1, p2) || Geometry::checkIntersection(enemyPos, playerPos, p2, p3) ||
+            Geometry::checkIntersection(enemyPos, playerPos, p3, p4) ||Geometry::checkIntersection(enemyPos, playerPos, p4, p1)) 
+        {
             return;
         }
     }
     seesPlayer = true;
 }
 
-void Enemy::draw(sf::RenderWindow& window) {
+
+/// <summary>
+/// Отрисовка в окне
+/// </summary>
+/// <param name="window"></param>
+void Enemy::draw(sf::RenderWindow& window) 
+{
     sf::VertexArray cone(sf::PrimitiveType::TriangleFan);
-    // SFML 3.0 aggregate initialization {}
     cone.append(sf::Vertex{ shape.getPosition(), sf::Color(255, 255, 0, 30) });
 
     float baseAngle = shape.getRotation().asDegrees();
